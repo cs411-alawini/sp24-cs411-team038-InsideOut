@@ -1,3 +1,3 @@
 # Docs
 
-This folder is where we will keep your documentations (reports, proposals, etc).
+This folder is where we will keep our documentations (reports, proposals, etc).
