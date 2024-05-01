@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Student Records</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="container mt-4">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="student-tab" data-toggle="tab" href="#student" role="tab" aria-controls="student" aria-selected="true">Student Information</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="teacher-tab" data-toggle="tab" href="#teacher" role="tab" aria-controls="teacher" aria-selected="false">Teacher Ratings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="research-tab" data-toggle="tab" href="#research" role="tab" aria-controls="research" aria-selected="false">Research</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="false">Courses</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="student" role="tabpanel" aria-labelledby="student-tab">
+        <div class="card mt-4">
+  <div class="card-body">
+    <h1>Student and Schedule Information</h1>
+    <div class="card mt-4">
+      <div class="card-body">
+        <h2>Student Information</h2>
+        <form id=studenteditor>
+          <div class="form-group">
+            <label for="netid1">Net ID</label>
+            <input type="text" class="form-control col-lg-9" id="netid1" placeholder="Enter Net ID" name="netid1">
+          </div>
+          <button type="button" class="btn btn-info mt-3" id="loadStudentBtn" data-toggle="modal" data-target="#viewStudentModal">View Student Information</button>
+        </form>
+      </div>
+    </div>
+
+   <div class="card mt-4">
+      <div class="card-body">
+        <h2>Update Student Information</h2>
+        <form action="modify" method="POST">
+          <div class="form-group">
+            <label for="netid">Net ID</label>
+            <input type="text" class="form-control col-lg-9" id="netid" placeholder="Enter Net ID" name="netid">
+          </div> 
+	  <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input type="text" class="form-control col-lg-9" id="first_name" placeholder="Update First Name" name="first_name">
+	  </div>
+	  <div class="form-group"> 
+ 	    <label for="last_name">Last Name</label>
+            <input type="text" class="form-control col-lg-9" id="last_name" placeholder="Update Last Name" name="last_name">
+          </div>
+	 <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card mt-4">
+      <div class="card-body">
+        <h2>Add Courses</h2>
+        <form action="scheduleeditor" method="POST">
+	  <div class="form-group">
+            <label for="netid2">Net ID</label>
+            <input type="text" class="form-control col-lg-9" id="netid2" placeholder="Enter Net ID" name="netid2">
+          </div>
+          <div class="form-group">
+            <label for="crn">CRN</label>
+            <input type="text" class="form-control col-lg-9" id="crn" placeholder="Enter CRN" name="crn">
+          </div>
+	  <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teacher-tab">
+ <div class="card mt-4">
+  <div class="card-body">
+    <h1>Teacher Ratings</h1>
+    <div class="card mt-4">
+      <div class="card-body">
+        <h2>Check Teacher Ratings</h2>
+        <form id = teacherrating>
+          <div class="form-group">
+            <label for="teacher1">Teacher</label>
+            <input type="text" class="form-control col-lg-9" id="teacher1" placeholder="Enter Teacher Name (Last Name, First Name)" name="teacher1">
+          </div>
+          <button type="button" class="btn btn-info mt-3" id="loadTeacherBtn" data-toggle="modal" data-target="#viewTeacherModal">View Ratings</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card mt-4">
+      <div class="card-body">
+        <h3>View Highest and Lowest Teacher Ratings and Difficulties</h3>
+          <button type="button" class="btn btn-info mt-3" id="loadHighLowTeacherBtn" data-toggle="modal" data-target="#viewHighLowTeacherModal">View Ratings</button>
+        </form>
+      </div>
+    </div>
+
+<div class="card mt-4">
+      <div class="card-body">
+        <h2>Add Teacher Ratings</h2>
+        <form action="addteachereditor" method="POST">
+          <div class="form-group">
+            <label for="netid3">Net ID</label>
+            <input type="text" class="form-control col-lg-9" id="netid3" placeholder="Enter NetId" name="netid3">
+          </div>
+        <div class="form-group">
+            <label for="teacher3">Teacher Name</label>
+            <input type="text" class="form-control col-lg-9" id="teacher3" placeholder="Enter Teacher Name" name="teacher3">
+          </div>
+        <div class="form-group">
+            <label for="rating">Rating</label>
+            <input type="text" class="form-control col-lg-9" id="rating" placeholder="Enter Rating" name="rating">
+          </div>
+        <div class="form-group">
+            <label for="class_difficulty">Class Difficulty</label>
+            <input type="text" class="form-control col-lg-9" id="class_difficulty" placeholder="Enter Class Difficulty" name="class_difficulty">
+          </div>
+<div class="form-group">
+            <label for="time_spent">Time Spent (In Hours)</label>
+            <input type="text" class="form-control col-lg-9" id="time_spent" placeholder="Enter Time Spent" name="time_spent">
+          </div>
+	 <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+      <div class="tab-pane fade" id="research" role="tabpanel" aria-labelledby="research-tab">
+        <div class="card mt-4">
+          <div class="card-body">
+	    <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort By
+            </button>
+            <div class="dropdown-menu" aria-labelledby="sortDropdown">
+              <a class="dropdown-item" href="#" id="sortByAscCount">Ascending # of Students</a>
+              <a class="dropdown-item" href="#" id="sortByDescCount">Descending # of Students</a>
+            </div>
+           </div>
+	   <div class="modal-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Research Project</th>
+                  <th scope="col">Field</th>
+                  <th scope="col">Number of Students</th>
+                </tr>
+              </thead>
+              <tbody id="researchBody">
+                <!-- Attendance rows will be inserted here -->
+              </tbody>
+            </table>
+           </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="course-tab">
+        <div class="card mt-4">
+          <div class="card-body">
+            <!-- Form for courses -->
+	    <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort By
+            </button>
+            <div class="dropdown-menu" aria-labelledby="sortDropdown">
+              <a class="dropdown-item" href="#" id="sortByCourseID">Course ID</a>
+              <a class="dropdown-item" href="#" id="sortByCRN">CRN</a>
+              <a class="dropdown-item" href="#" id="sortByLocation">Location</a>
+              <a class="dropdown-item" href="#" id="sortByAverageGPA">Average GPA</a>
+            </div>
+      	   </div>
+	   <div class="modal-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">CRN</th>
+                  <th scope="col">CourseID</th>
+		  <th scope="col">Credits</th>
+	          <th scope="col">GenEdCriteria</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Meeting Time</th>
+                  <th scope="col">Average GPA</th>
+                </tr>
+              </thead>
+              <tbody id="courseBody">
+                <!-- Attendance rows will be inserted here -->
+              </tbody>
+            </table>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- Modal for Viewing Student -->
+    <div class="modal fade" id="viewStudentModal" tabindex="-1" role="dialog" aria-labelledby="viewStudentModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-ceneted modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewStudentModalLabel">Student Record</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Net ID</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Year</th>
+                </tr>
+              </thead>
+              <tbody id="studentBody">
+                <!-- Attendance rows will be inserted here -->
+            </table>
+	    <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Net ID</th>
+                  <th scope="col">CRN</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleBody">
+              <!-- Attendance rows will be inserted here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ <!-- Modal for Viewing Teacher -->
+    <div class="modal fade" id="viewTeacherModal" tabindex="-1" role="dialog" aria-labelledby="viewTeacherModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-ceneted modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewTeacherModalLabel">Teacher Records</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Net ID</th>
+                  <th scope="col">Teacher Name</th>
+                  <th scope="col">Rating</th>
+                  <th scope="col">Class Difficulty</th>
+                  <th scope="col">TimeSpent</th>
+                </tr>
+              </thead>
+              <tbody id="teacherBody">
+                <!-- Attendance rows will be inserted here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ <!-- Modal for Viewing HighLowTeachers -->
+<div class="modal fade" id="viewHighLowTeacherModal" tabindex="-1" role="dialog" aria-labelledby="viewHighLowTeacherModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-ceneted modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewHighLowTeacherModalLabel">Difficulty Records</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Teacher Name</th>
+                  <th scope="col">Average Class Difficulty</th>
+                  <th scope="col">Average TimeSpent</th>
+                  <th scope="col">Average Rating</th>
+                </tr>
+              </thead>
+              <tbody id="highLowTeacherBody">
+                <!-- Attendance rows will be inserted here -->
+              </tbody>
+            </table>
+           <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Department Name</th>
+                  <th scope="col">Average Class Difficulty</th>
+                  <th scope="col">Average TimeSpent</th>
+                  <th scope="col">Average Rating</th>
+                </tr>
+              </thead>
+              <tbody id="highLowDepartmentBody">
+                <!-- Attendance rows will be inserted here -->
+              </tbody>
+            </table>
+	  </div>
+        </div>
+      </div>
+    </div>
+
+<script>
+  $(document).ready(function() {
+    $('#loadStudentBtn').click(function() {
+      var netid = $('#netid1').val();
+      console.log('Net ID:', netid);
+      $.ajax({
+        url: '/api/student/find',
+        method: 'GET',
+        data: {netid: netid},
+        success: function(data) {
+          var rows = '';
+          data.forEach(function(student, index) {
+            rows += `<tr>
+                       <th scope="row">${index + 1}</th>
+                       <td>${student.NetId}</td>
+                       <td>${student.FirstName}</td>
+                       <td>${student.LastName}</td>
+                       <td>${student.Email}</td>
+                       <td>${student.Year}</td>
+                     </tr>`;
+          });
+          $('#studentBody').html(rows);
+        },
+        error: function() {
+          alert('Failed to load student data.');
+        }
+      });
+     $.ajax({
+        url: '/api/student/schedule',
+        method: 'GET',
+        data: {netid: netid},
+        success: function(data) {
+          var rows = '';
+          data.forEach(function(schedule, index) {
+            rows += `<tr>
+                       <th scope="row">${index + 1}</th>
+                       <td>${schedule.NetID}</td>
+                       <td>${schedule.CRN}</td>
+                       <td>
+                         <button class="btn btn-danger btn-sm btn-delete" data-netid="${schedule.NetID}" data-crn="${schedule.CRN}">Delete</button>
+                     </td>
+                     </tr>`;
+          });
+          $('#scheduleBody').html(rows);
+        },
+        error: function() {
+          alert('Failed to load schedule data.');
+        }
+      });
+    });
+  });
+ $(document).on('click', '.btn-delete', function() {
+        var netid = $(this).data('netid');
+	var crn = $(this).data('crn');
+	console.log("Netid", netid);
+        if(confirm('Are you sure you want to delete attendance for Net ID: ' + netid + '?')) {
+            $.ajax({
+                url: '/api/schedule/delete',
+                type: 'DELETE',
+		data: {netid: netid, crn: crn}, 
+                success: function(response) {
+                    alert('Attendance deleted successfully for Net ID: ' + netid);
+                    location.reload();
+                },
+                error: function() {
+                    alert('Error deleting attendance for Net ID: ' + netid);
+                }
+            });
+        }
+    });
+
+ </script>
+
+<script>
+  $(document).ready(function() {
+    $('#loadTeacherBtn').click(function() {
+      var teacher = $('#teacher1').val();
+      console.log('Teacher:', teacher);
+      $.ajax({
+        url: '/api/teacher/find',
+        method: 'GET',
+        data: {teacher: teacher},
+        success: function(data) {
+          var rows = '';
+          data.forEach(function(teacher, index) {
+            rows += `<tr>
+                       <th scope="row">${index + 1}</th>
+                       <td>${teacher.NetID}</td>
+                       <td>${teacher.Name}</td>
+                       <td>${teacher.Rating}</td>
+                       <td>${teacher.ClassDifficulty}</td>
+                       <td>${teacher.TimeSpent}</td>
+                     </tr>`;
+          });
+          $('#teacherBody').html(rows);
+        },
+        error: function() {
+          alert('Failed to load teacher data.');
+        }
+      });
+    });
+  });
+ </script>
+
+<script>
+  $(document).ready(function() {
+    $('#loadHighLowTeacherBtn').click(function() {
+      $.ajax({
+        url: '/api/teacher',
+        method: 'GET',
+        success: function(data) {
+          var rows = '';
+	  const [firstItem, secondItem, ...rest] = data
+          firstItem.forEach(function(teacher, index) {
+	  rows += `<tr>
+                       <th scope="row">${index + 1}</th>
+                       <td>${teacher.InstructorName}</td>
+                       <td>${teacher.AverageClassDifficulty}</td>
+                       <td>${teacher.AverageTimeSpent}</td>
+                       <td>${teacher.AverageRating}</td>
+                     </tr>`;
+          });
+          $('#highLowTeacherBody').html(rows);
+	  
+	  var rows2 = '';
+          secondItem.forEach(function(teacher, index) {
+          rows2 += `<tr>
+                       <th scope="row">${index + 1}</th>
+                       <td>${teacher.DepartmentTitle}</td>
+                       <td>${teacher.AvgClassDifficulty}</td>
+                       <td>${teacher.AvgTimeSpent}</td>
+                       <td>${teacher.AvgRating}</td>
+                     </tr>`;
+          });
+          $('#highLowDepartmentBody').html(rows2);
+        },
+        error: function() {
+          alert('Failed to load teacher data.');
+        }
+      });
+    });
+  });
+ </script>
+
+<script>
+$(document).ready(function() {
+  $('#sortByCourseID').click(function() {
+    var sortBy = 'CourseID'
+    $.ajax({
+        url: '/api/courses',
+        method: 'GET',
+	data: {sortBy: sortBy},
+        success: function(data) {
+          var rows = '';
+          data.forEach(function(course, index) {
+            rows += `<tr>
+                       <th scope="row">${index + 1}</th>
+                       <td>${course.CRN}</td>
+                       <td>${course.CourseID}</td>
+		       <td>${course.Credits}</td>
+                       <td>${course.GenEdCriteria}</td>
+                       <td>${course.Location}</td>
+		       <td>${course.MeetingTime}</td>
+		       <td>${course.AverageGPA}</td>
+                     </tr>`;
+          });
+          $('#courseBody').html(rows);
+        },
+        error: function() {
+          alert('Failed to load course data.');
+        }
+      });
+    });
+
+  $('#sortByCRN').click(function() {
+    var sortBy = 'CRN'
+    $.ajax({
+        url: '/api/courses',
+        method: 'GET',
+        data: {sortBy: sortBy},
+        success: function(data) {
+          var rows = '';
+          data.forEach(function(course, index) {
+            rows += `<tr>
+                       <th scope="row">${index + 1}</th>
+                       <td>${course.CRN}</td>
+                       <td>${course.CourseID}</td>
+                       <td>${course.Credits}</td>
+                       <td>${course.GenEdCriteria}</td>
+                       <td>${course.Location}</td>
+                       <td>${course.MeetingTime}</td>
+                       <td>${course.AverageGPA}</td>
+                     </tr>`;
+          });
+          $('#courseBody').html(rows);
+        },
+        error: function() {
+          alert('Failed to load course data.');
+        }
+      });
+    });
+
+  $('#sortByLocation').click(function() {
+    var sortBy = 'Location'
+    $.ajax({
+        url: '/api/courses',
+        method: 'GET',
+        data: {sortBy: sortBy},
+        success: function(data) {
+          var rows = '';
+          data.forEach(function(course, index) {
+            rows += `<tr>
+                       <th scope="row">${index + 1}</th>
+                       <td>${course.CRN}</td>
+                       <td>${course.CourseID}</td>
+                       <td>${course.Credits}</td>
+                       <td>${course.GenEdCriteria}</td>
+                       <td>${course.Location}</td>
+                       <td>${course.MeetingTime}</td>
+                       <td>${course.AverageGPA}</td>
+                     </tr>`;
+          });
+          $('#courseBody').html(rows);
+        },
+        error: function() {
+          alert('Failed to load course data.');
+        }
+     });
+  });
+
+  $('#sortByAverageGPA').click(function() {
+    var sortBy = 'AverageGPA'
+    $.ajax({
+        url: '/api/courses',
+        method: 'GET',
+        data: {sortBy: sortBy},
+        success: function(data) {
+          var rows = '';
+          data.forEach(function(course, index) {
+            rows += `<tr>
+                       <th scope="row">${index + 1}</th>
+                       <td>${course.CRN}</td>
+                       <td>${course.CourseID}</td>
+                       <td>${course.Credits}</td>
+                       <td>${course.GenEdCriteria}</td>
+                       <td>${course.Location}</td>
+                       <td>${course.MeetingTime}</td>
+                       <td>${course.AverageGPA}</td>
+                     </tr>`;
+          });
+          $('#courseBody').html(rows);
+        },
+        error: function() {
+          alert('Failed to load course data.');
+        }
+     });
+  });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+  $('#sortByAscCount').click(function() {
+    var sortBy = 'ASC'
+    $.ajax({
+        url: '/api/research',
+        method: 'GET',
+        data: {sortBy: sortBy},
+        success: function(data) {
+          var rows = '';
+          data.forEach(function(research, index) {
+            rows += `<tr>
+                       <th scope="row">${index + 1}</th>
+                       <td>${research.ResearchName}</td>
+                       <td>${research.Field}</td>
+                       <td>${research.NumStudents}</td>
+                     </tr>`;
+          });
+          $('#researchBody').html(rows);
+        },
+        error: function() {
+          alert('Failed to load course data.');
+        }
+      });
+    });
+  $('#sortByDescCount').click(function() {
+    var sortBy = 'DESC'
+    $.ajax({
+        url: '/api/research',
+        method: 'GET',
+        data: {sortBy: sortBy},
+        success: function(data) {
+          var rows = '';
+          data.forEach(function(research, index) {
+            rows += `<tr>
+ 		       <th scope="row">${index + 1}</th>
+                       <td>${research.ResearchName}</td>
+                       <td>${research.Field}</td>
+                       <td>${research.NumStudents}</td>
+                     </tr>`;
+          });
+          $('#researchBody').html(rows);
+        },
+        error: function() {
+          alert('Failed to load course data.');
+        }
+     });
+  });
+});
+</script>
+</body>
+</html>
