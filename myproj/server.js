@@ -182,13 +182,19 @@ app.post('/scheduleeditor', function(req, res) {
    
   var sql = `INSERT INTO ENROLLS (NetId, CRN) VALUES ('${netid}', '${crn}')`;
 
-console.log(sql);
-  connection.query(sql, function(err, result) {
+   console.log(sql);
+   connection.query(sql, function(err, result) {
     if (err) {
       res.send(err)
       return;
     }
+   connection.query('CALL UpdateUserYearIf18Credits(?)', [netid], function(err) {
+      if (err) {
+        res.send(err);
+        return;
+    }
     res.redirect('/success');
+    });
   });
 });
 
